@@ -122,6 +122,7 @@ myKeybindings = [
     ("M-g", spawn (myGitClient)),
     ("M-b", spawn (myBrowser)),
     ("M-S-b", spawn (myBrowser ++ " -private-window")),
+    ("M-`", spawn "dunstctl history-pop"),
 -- window manipulation (move/resize/shift)
     ("M-S-m", promote),
     ("M-S-j", windows W.swapDown),
