@@ -32,6 +32,7 @@ import qualified XMonad.Layout.ToggleLayouts as T
 import System.Exit
 
 myTerminal = "alacritty"
+myFileManager = "thunar"
 myBrowser = "firefox"
 myEmailClient = "thunderbird"
 myCalendar = "gnome-calendar"
@@ -113,6 +114,7 @@ myKeybindings = [
 -- app hotkeys
     ("M-<Return>", spawn (myTerminal)),
     ("M-<Space>", spawn "dmenu_run -i -p \"Run:\""),
+    ("M-t", spawn (myFileManager)),
     ("M-a", spawn (myCalculator)),
     ("M-s", spawn (myVisualEditor)),
     ("M-e", spawn (myEmailClient)),
