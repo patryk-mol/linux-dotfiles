@@ -118,3 +118,4 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/projects/linux-dotfiles/ --work-tre
 alias ls=exa
 alias lsl='exa -lh'
 alias lsal='exa -alh'
+alias maintnance='~/projects/linux-scripts/update.sh'
