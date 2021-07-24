@@ -123,6 +123,7 @@ myKeybindings = [
     ("M-b", spawn (myBrowser)),
     ("M-S-b", spawn (myBrowser ++ " -private-window")),
     ("M-`", spawn "dunstctl history-pop"),
+    ("M-h", spawn "notify-send \"$(date +%H:%M:%S)\""),
 -- window manipulation (move/resize/shift)
     ("M-S-m", promote),
     ("M-S-j", windows W.swapDown),
