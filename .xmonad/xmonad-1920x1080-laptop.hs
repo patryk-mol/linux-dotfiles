@@ -36,6 +36,7 @@ myFileManager = "thunar"
 myBrowser = "firefox"
 myEmailClient = "thunderbird"
 myCalendar = "gnome-calendar"
+myPasswordManager = "bitwarden"
 myVisualEditor = "subl"
 myGitClient = "gitg"
 myCalculator = "galculator"
@@ -120,6 +121,7 @@ myKeybindings = [
     ("M-e", spawn (myEmailClient)),
     ("M-c", spawn (myCalendar)),
     ("M-g", spawn (myGitClient)),
+    ("M-w", spawn (myPasswordManager)),
     ("M-b", spawn (myBrowser)),
     ("M-S-b", spawn (myBrowser ++ " -private-window")),
     ("M-`", spawn "dunstctl history-pop"),
