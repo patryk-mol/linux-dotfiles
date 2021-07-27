@@ -34,7 +34,7 @@ import System.Exit
 myTerminal = "alacritty"
 myFileManager = "thunar"
 myBrowser = "firefox"
-myEmailClient = "thunderbird"
+myEmailClient = "mailspring"
 myCalendar = "gnome-calendar"
 myPasswordManager = "bitwarden"
 myVisualEditor = "subl"
