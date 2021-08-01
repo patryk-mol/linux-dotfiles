@@ -115,6 +115,7 @@ myKeybindings = [
 -- app hotkeys
     ("M-<Return>", spawn (myTerminal)),
     ("M-<Space>", spawn "dmenu_run -i -p \"Run:\""),
+    ("M-M1-<Space>", spawn "~/.xmenu.sh"),
     ("M-t", spawn (myFileManager)),
     ("M-a", spawn (myCalculator)),
     ("M-s", spawn (myVisualEditor)),
