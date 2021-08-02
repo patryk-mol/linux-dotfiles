@@ -125,5 +125,7 @@ alias open=xdg-open
 # Package managers
 alias pmi="sudo pacman -Syu"
 alias pmr="sudo pacman -Rcns"
+alias pmc="sudo pacman -R $(pacman -Qdtq)"
 alias yayi="yay -Syu"
 alias yayr="yay -Rcns"
+alias yayc="yay -R $(yay -Qdtq)"
