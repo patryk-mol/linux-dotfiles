@@ -122,7 +122,8 @@ alias lsl='exa -lh'
 alias lsal='exa -alh'
 alias maintnance='~/projects/linux-scripts/update.sh'
 alias open=xdg-open
-alias cat=bat
+alias less=bat
+alias cat='bat --paging=never'
 
 # Package managers
 alias pmi="sudo pacman -Syu"
