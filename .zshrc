@@ -113,6 +113,7 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 export EDITOR=nano
 export VISUAL=subl
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # General
 alias dotfiles='/usr/bin/git --git-dir=$HOME/projects/linux-dotfiles/ --work-tree=$HOME'
@@ -121,6 +122,7 @@ alias lsl='exa -lh'
 alias lsal='exa -alh'
 alias maintnance='~/projects/linux-scripts/update.sh'
 alias open=xdg-open
+alias cat=bat
 
 # Package managers
 alias pmi="sudo pacman -Syu"
