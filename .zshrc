@@ -111,6 +111,8 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
+# Env vars
+export PATH=$PATH:$HOME/.cargo/bin
 export EDITOR=nano
 export VISUAL=subl
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -122,8 +124,9 @@ alias lsl='exa -lh'
 alias lsal='exa -alh'
 alias maintnance='~/projects/linux-scripts/update.sh'
 alias open=xdg-open
-alias less=bat
+alias less='bat --paging=always'
 alias cat='bat --paging=never'
+alias ps=procs
 
 # Package managers
 alias pmi="sudo pacman -Syu"
