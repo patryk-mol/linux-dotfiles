@@ -4,6 +4,10 @@ export EDITOR=nano
 export VISUAL=subl
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+# Plugins
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # General
 alias dotfiles='/usr/bin/git --git-dir=$HOME/projects/linux-dotfiles/ --work-tree=$HOME'
 alias ls=exa
