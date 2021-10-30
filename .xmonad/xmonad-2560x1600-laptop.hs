@@ -145,12 +145,7 @@ myKeybindings = [
     ("M-f", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts),
 -- float/tile windows
     ("M-S-f", withFocused toggleFloat),
-    ("M-S-t", sinkAll),
--- media keys
-    ("<XF86AudioMute>", spawn "amixer set Master toggle"),
-    ("<XF86AudioLowerVolume>", spawn "amixer set Master 2%- unmute"),
-    ("<XF86AudioRaiseVolume>", spawn "amixer set Master 2%+ unmute")
-
+    ("M-S-t", sinkAll)
     ] where
             toggleFloat w = windows (\s -> if M.member w (W.floating s)
                             then W.sink w s
