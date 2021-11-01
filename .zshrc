@@ -26,9 +26,9 @@ alias ps=procs
 alias pmi="sudo pacman -Syu"
 alias pmr="sudo pacman -Rcns"
 alias pmc="sudo pacman -R $(pacman -Qdtq)"
-alias yayi="yay -Syu"
-alias yayr="yay -Rcns"
-alias yayc="yay -R $(yay -Qdtq)"
+alias pri="paru -Syu"
+alias prr="paru -Rcns"
+alias prc="paru -R $(paru -Qdtq)"
 
 # Starship
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
