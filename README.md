@@ -1,8 +1,10 @@
 # linux-dotfiles
 Dotfiles for Linux distros
 
-### Hiding untracked files in `status` command
+### Setup
+
+Run the following command in terminal
 
 ```
-dotfiles config --local status.showUntrackedFiles no
+sh <(curl -s https://raw.githubusercontent.com/patryk-mol/linux-dotfiles/main/setup.sh)
 ```
