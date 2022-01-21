@@ -139,7 +139,7 @@ keys = [
 # MY KEYBINDS
     Key([mod], "space", lazy.spawn("dmenu_run -p 'Run: '"), desc='Run Launcher'),
     Key([mod], "b", lazy.spawn("brave"), desc='Run Brave'),
-    Key([mod], "v", lazy.spawn("bitwarden"), desc='Run Bitwarden'),
+    Key([mod], "v", lazy.spawn("bitwarden-desktop"), desc='Run Bitwarden'),
     Key([mod, "shift"], "x", lazy.spawn("arcolinux-logout"), desc="Open logout window"),
     Key([mod], "Return", lazy.spawn("alacritty"), desc='Run Alacritty'),
     Key([mod], "t", lazy.spawn("thunar"), desc='Run Thunar'),
