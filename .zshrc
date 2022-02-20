@@ -24,6 +24,7 @@ alias mkdir='mkdir -p'
 alias df='df -h'
 alias free='free -m'
 alias ..='up'
+alias ssh='run-ssh-agent; /usr/bin/ssh'
 
 # Package managers
 alias pmi="sudo pacman -Syu"
@@ -60,12 +61,14 @@ up () {
 }
 
 # ssh-agent
-if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-  eval `ssh-agent`
-  ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-fi
-export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
-ssh-add -l > /dev/null || ssh-add
+run-ssh-agent () {
+  if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+    eval `ssh-agent`
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+  fi
+  export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+  ssh-add -l > /dev/null || ssh-add
+}
 
 # Starship
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
