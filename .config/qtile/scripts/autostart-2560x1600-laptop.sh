@@ -18,7 +18,7 @@ run deadd-notification-center &
 
 numlockx on &
 blueberry-tray &
-picom --config $HOME/.config/qtile/scripts/picom.conf &
+picom --experimental-backends --config $HOME/.config/picom/picom.conf &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 #starting user applications at boot time
