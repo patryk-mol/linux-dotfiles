@@ -152,15 +152,11 @@ groups = []
 # FOR QWERTY KEYBOARDS
 group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0",]
 
-# FOR AZERTY KEYBOARDS
-#group_names = ["ampersand", "eacute", "quotedbl", "apostrophe", "parenleft", "section", "egrave", "exclam", "ccedilla", "agrave",]
-
 #group_labels = ["1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 ", "0",]
 group_labels = ["", "", "", "", "", "", "", "", "", "",]
 #group_labels = ["Web", "Edit/chat", "Image", "Gimp", "Meld", "Video", "Vb", "Files", "Mail", "Music",]
 
 group_layouts = ["max", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall",]
-#group_layouts = ["monadtall", "matrix", "monadtall", "bsp", "monadtall", "matrix", "monadtall", "bsp", "monadtall", "monadtall",]
 
 for i in range(len(group_names)):
     groups.append(
@@ -235,187 +231,201 @@ def init_widgets_defaults():
 
 widget_defaults = init_widgets_defaults()
 
+def open_notification_center():
+    home = os.path.expanduser('~')
+    subprocess.call([home + '/.config/qtile/scripts/show-notification-center.sh'])
+
 def init_widgets_list():
     prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
     widgets_list = [
-               widget.GroupBox(font="FontAwesome",
-                        fontsize = 16,
-                        margin_y = 3,
-                        margin_x = 0,
-                        padding_y = 6,
-                        padding_x = 5,
-                        borderwidth = 0,
-                        disable_drag = True,
-                        active = colors[9],
-                        inactive = colors[5],
-                        rounded = False,
-                        highlight_method = "text",
-                        this_current_screen_border = colors[8],
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-               widget.CurrentLayout(
-                        font = "Noto Sans Bold",
-                        foreground = colors[5],
-                        background = colors[1]
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-               widget.Spacer(),
-               widget.WindowName(font="Noto Sans",
-                        fontsize = 14,
-                        foreground = colors[5],
-                        background = colors[1],
-                        width=bar.CALCULATED,
-                        ),
-               widget.Spacer(),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-               widget.Net(
-                        font="Noto Sans",
-                        fontsize=12,
-                        foreground=colors[5],
-                        background=colors[1],
-                        format='{down}  ↓↑ {up}',
-                        padding=0,
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-               widget.ThermalSensor(
-                        foreground = colors[5],
-                        foreground_alert = colors[6],
-                        background = colors[1],
-                        metric = True,
-                        padding = 3,
-                        threshold = 80
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[1],
-                        ),
-               widget.TextBox(
-                        font="FontAwesome",
-                        text="  ",
-                        foreground=colors[6],
-                        background=colors[1],
-                        padding = 0,
-                        fontsize=16
-                        ),
-               widget.CPU(
-                          font="Noto Sans",
-                          format='{freq_current}GHz {load_percent}%',
-                          foreground=colors[5],
-                          background=colors[1],
-                          padding=0,
-                          fontsize=12,
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-               widget.TextBox(
-                        font="FontAwesome",
-                        text="  ",
-                        foreground=colors[4],
-                        background=colors[1],
-                        padding = 0,
-                        fontsize=16
-                        ),
-               widget.Memory(
-                        font="Noto Sans",
-                        format = '{MemUsed:.0f}M/{MemTotal:.0f}M',
-                        update_interval = 1,
-                        fontsize = 12,
-                        foreground = colors[5],
-                        background = colors[1],
-                       ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,  
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-               widget.TextBox(
-                        font="FontAwesome",
-                        text="  ",
-                        foreground=colors[3],
-                        background=colors[1],
-                        padding = 0,
-                        fontsize=16
-                        ),
-               widget.Clock(
-                        font="Noto Sans",
-                        foreground = colors[5],
-                        background = colors[1],
-                        fontsize = 12,
-                        format="%Y-%m-%d %H:%M"
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-               widget.TextBox(
-                        font="FontAwesome",
-                        text="  ",
-                        foreground=colors[2],
-                        background=colors[1],
-                        padding = 0,
-                        fontsize=16
-                        ),
-               widget.Backlight(
-                        backlight_name = "intel_backlight"
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-               widget.TextBox(
-                        font="FontAwesome",
-                        text="  ",
-                        foreground=colors[2],
-                        background=colors[1],
-                        padding = 0,
-                        fontsize=16
-                        ),
-               widget.Volume(),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 10,
-                        foreground = colors[2],
-                        background = colors[1]
-                        ),
-               widget.Systray(
-                        background=colors[1],
-                        icon_size=20,
-                        padding = 4
-                        ),
-              ]
+        widget.GroupBox(
+            font="FontAwesome",
+            fontsize = 16,
+            margin_y = 3,
+            margin_x = 0,
+            padding_y = 6,
+            padding_x = 5,
+            borderwidth = 0,
+            disable_drag = True,
+            active = colors[9],
+            inactive = colors[5],
+            rounded = False,
+            highlight_method = "text",
+            this_current_screen_border = colors[8],
+            foreground = colors[2],
+            background = colors[1]
+        ),
+        widget.Sep(
+            linewidth = 1,
+            padding = 10,
+            foreground = colors[2],
+            background = colors[1]
+        ),
+        widget.CurrentLayout(
+            font = "Noto Sans Bold",
+            foreground = colors[5],
+            background = colors[1]
+        ),
+        widget.Sep(
+            linewidth = 1,
+            padding = 10,
+            foreground = colors[2],
+            background = colors[1]
+        ),
+        widget.Spacer(),
+        widget.WindowName(font="Noto Sans",
+            fontsize = 14,
+            foreground = colors[5],
+            background = colors[1],
+            width=bar.CALCULATED,
+        ),
+        widget.Spacer(),
+        widget.Sep(
+            linewidth = 1,
+            padding = 10,
+            foreground = colors[2],
+            background = colors[1]
+        ),
+        widget.Net(
+            font="Noto Sans",
+            fontsize=12,
+            foreground=colors[5],
+            background=colors[1],
+            format='{down}  ↓↑ {up}',
+            padding=0,
+        ),
+        widget.Sep(
+            linewidth = 1,
+            padding = 10,
+            foreground = colors[2],
+            background = colors[1]
+        ),
+        widget.ThermalSensor(
+            foreground = colors[5],
+            foreground_alert = colors[6],
+            background = colors[1],
+            metric = True,
+            padding = 3,
+            threshold = 80
+        ),
+        widget.Sep(
+            linewidth = 1,
+            padding = 10,
+            foreground = colors[2],
+            background = colors[1],
+        ),
+        widget.TextBox(
+            font="FontAwesome",
+            text="  ",
+            foreground=colors[6],
+            background=colors[1],
+            padding = 0,
+            fontsize=16
+        ),
+        widget.CPU(
+              font="Noto Sans",
+              format='{freq_current}GHz {load_percent}%',
+              foreground=colors[5],
+              background=colors[1],
+              padding=0,
+              fontsize=12,
+        ),
+        widget.Sep(
+            linewidth = 1,
+            padding = 10,
+            foreground = colors[2],
+            background = colors[1]
+        ),
+        widget.TextBox(
+            font="FontAwesome",
+            text="  ",
+            foreground=colors[4],
+            background=colors[1],
+            padding = 0,
+            fontsize=16
+        ),
+        widget.Memory(
+            font="Noto Sans",
+            format = '{MemUsed:.0f}M/{MemTotal:.0f}M',
+            update_interval = 1,
+            fontsize = 12,
+            foreground = colors[5],
+            background = colors[1],
+       ),
+        widget.Sep(
+            linewidth = 1,
+            padding = 10,  
+            foreground = colors[2],
+            background = colors[1]
+        ),
+        widget.TextBox(
+            font="FontAwesome",
+            text="  ",
+            foreground=colors[3],
+            background=colors[1],
+            padding = 0,
+            fontsize=16
+        ),
+        widget.Clock(
+            font="Noto Sans",
+            foreground = colors[5],
+            background = colors[1],
+            fontsize = 12,
+            format="%Y-%m-%d %H:%M"
+        ),
+        widget.Sep(
+            linewidth = 1,
+            padding = 10,
+            foreground = colors[2],
+            background = colors[1]
+        ),
+        widget.TextBox(
+            font="FontAwesome",
+            text="  ",
+            foreground=colors[2],
+            background=colors[1],
+            padding = 0,
+            fontsize=16
+        ),
+        widget.Backlight(
+            backlight_name = "intel_backlight"
+        ),
+        widget.Sep(
+            linewidth = 1,
+            padding = 10,
+            foreground = colors[2],
+            background = colors[1]
+        ),
+        widget.TextBox(
+            font="FontAwesome",
+            text="  ",
+            foreground=colors[2],
+            background=colors[1],
+            padding = 0,
+            fontsize=16
+        ),
+        widget.Volume(),
+        widget.Sep(
+            linewidth = 1,
+            padding = 10,
+            foreground = colors[2],
+            background = colors[1]
+        ),
+        widget.Systray(
+            background=colors[1],
+            icon_size=20,
+            padding = 4
+        ),
+        widget.TextBox(
+            font="FontAwesome",
+            text="      ",
+            foreground=colors[2],
+            background=colors[1],
+            mouse_callbacks={"Button1": open_notification_center},
+            padding = 0,
+            fontsize=11
+        ),
+    ]
     return widgets_list
 
 widgets_list = init_widgets_list()
@@ -434,7 +444,7 @@ widgets_screen2 = init_widgets_screen2()
 
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26, opacity=0.8))]
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26, opacity=0.9))]
 
 screens = init_screens()
 
@@ -548,7 +558,6 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='xfce4-terminal'),
     Match(wm_class='Bitwarden'),
     Match(wm_class='xfce4-appfinder'),
-
 ],  fullscreen_border_width = 0, border_width = 0)
 auto_fullscreen = True
 
