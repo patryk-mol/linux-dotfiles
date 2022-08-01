@@ -14,7 +14,6 @@ feh --bg-fill /usr/share/backgrounds/space.jpg &
 run nm-applet &
 run pamac-tray &
 run xfce4-power-manager &
-run deadd-notification-center &
 
 numlockx on &
 blueberry-tray &
