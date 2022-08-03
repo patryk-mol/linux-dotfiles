@@ -136,6 +136,11 @@ keys = [
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -D pulse sset Master 2%-")),
     Key([], "XF86AudioMute", lazy.spawn("amixer -D pulse sset Master toogle")),
 
+# BRIGHTNESS KEYBINDS
+
+    Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 10 -time 100")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 10 -time 100")),
+
 # MY KEYBINDS
     Key([mod], "space", lazy.spawn("dmenu_run -p 'Run: '"), desc='Run Launcher'),
     Key([mod], "b", lazy.spawn("brave"), desc='Run Brave'),

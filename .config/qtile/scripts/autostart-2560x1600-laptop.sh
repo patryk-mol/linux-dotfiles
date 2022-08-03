@@ -7,15 +7,25 @@ function run {
   fi
 }
 
-#Some ways to set your wallpaper besides variety or nitrogen
-feh --bg-fill /usr/share/backgrounds/space.jpg &
-
 #starting utility applications at boot time
+feh --bg-fill /usr/share/backgrounds/space.jpg &
 run nm-applet &
 run pamac-tray &
-numlockx on &
-blueberry-tray &
-picom --experimental-backends --config $HOME/.config/picom/picom.conf &
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+run numlockx on &
+run blueberry-tray &
+run picom --experimental-backends --config $HOME/.config/picom/picom.conf &
+run /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+xidlehook \
+  --not-when-fullscreen \
+  --not-when-audio \
+  --timer 60 \
+    'xbacklight -set 10 -time 0 -steps 1' \
+    'xbacklight -set 40 -time 0 -steps 1' \
+  --timer 240 \
+    'xbacklight -set 40 -time 0 -steps 1; betterlockscreen -l' \
+    '' \
+  --timer 300 \
+    'systemctl suspend' \
+    '' &
 
 #starting user applications at boot time
