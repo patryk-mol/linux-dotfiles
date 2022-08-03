@@ -381,7 +381,7 @@ def init_widgets_list():
         ),
         widget.TextBox(
             font="FontAwesome",
-            text="  ",
+            text="  ",
             foreground=colors[2],
             background=colors[1],
             padding = 0,
@@ -397,12 +397,12 @@ def init_widgets_list():
             background = colors[1]
         ),
         widget.TextBox(
-            font="FontAwesome",
-            text="  ",
-            foreground=colors[2],
-            background=colors[1],
+            font = "FontAwesome",
+            text = "  ",
+            foreground = colors[2],
+            background = colors[1],
             padding = 0,
-            fontsize=16
+            fontsize = 16
         ),
         widget.Volume(),
         widget.Sep(
@@ -411,19 +411,45 @@ def init_widgets_list():
             foreground = colors[2],
             background = colors[1]
         ),
+        widget.TextBox(
+            font = "FontAwesome",
+            text = "  ",
+            foreground = colors[2],
+            background = colors[1],
+            padding = 0,
+            fontsize = 16
+        ),
+        widget.Battery(
+            battery = "CMB0",
+            charge_char = " ",
+            full_char = "",
+            discharge_char = "",
+            empty_char = "",
+            unknown_char = "",
+            low_percentage = 0.2,
+            notify_below = 0.2,
+            update_interval = 1,
+            format = "{char}{percent:2.0%}"
+        ),
+        widget.Sep(
+            linewidth = 1,
+            padding = 10,
+            foreground = colors[2],
+            background = colors[1]
+        ),
         widget.Systray(
-            background=colors[1],
-            icon_size=20,
+            background = colors[1],
+            icon_size = 20,
             padding = 4
         ),
         widget.TextBox(
-            font="FontAwesome",
-            text="      ",
-            foreground=colors[2],
-            background=colors[1],
-            mouse_callbacks={"Button1": open_notification_center},
+            font = "FontAwesome",
+            text = "      ",
+            foreground = colors[2],
+            background = colors[1],
+            mouse_callbacks = {"Button1": open_notification_center},
             padding = 0,
-            fontsize=11
+            fontsize = 11
         ),
     ]
     return widgets_list
