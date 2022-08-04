@@ -571,8 +571,9 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='ssh-askpass'),  # ssh-askpass
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
+    Match(title='ArchLinux Logout'),
     Match(wm_class='Arcolinux-welcome-app.py'),
-    Match(wm_class='Arcolinux-tweak-tool.py'),
+    Match(wm_class='Archlinux-tweak-tool.py'),
     Match(wm_class='Arcolinux-calamares-tool.py'),
     Match(wm_class='confirm'),
     Match(wm_class='dialog'),
@@ -585,7 +586,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='Arandr'),
     Match(wm_class='feh'),
     Match(wm_class='Galculator'),
-    Match(wm_class='arcolinux-logout'),
+    Match(wm_class='Archlinux-logout.py'),
     Match(wm_class='xfce4-terminal'),
     Match(wm_class='Bitwarden'),
     Match(wm_class='xfce4-appfinder'),
