@@ -20,12 +20,12 @@ xidlehook \
   --not-when-audio \
   --timer 60 \
     'xbacklight -set 10 -time 0 -steps 1' \
-    'xbacklight -set 40 -time 0 -steps 1' \
+    'xbacklight -set 60 -time 0 -steps 1' \
   --timer 240 \
-    'xbacklight -set 40 -time 0 -steps 1; betterlockscreen -l' \
-    '' \
+    'xbacklight -set 10 -time 0 -steps 1; betterlockscreen -l' \
+    'xbacklight -set 60 -time 0 -steps 1' \
   --timer 300 \
     'systemctl suspend' \
-    '' &
+    'xbacklight -set 60 -time 0 -steps 1' &
 
 #starting user applications at boot time
