@@ -191,15 +191,15 @@ for i in groups:
 def init_layout_theme():
     return {"margin":2,
             "border_width":2,
-            "border_focus": "#5e81ac",
-            "border_normal": "#4c566a"
+            "border_focus": "#aaaaac",
+            "border_normal": "#464648"
             }
 
 layout_theme = init_layout_theme()
 
 
 layouts = [
-    layout.MonadTall(margin=4, border_width=1, border_focus="#62c659", border_normal="#4c566a"),
+    layout.MonadTall(margin=6, border_width=2, border_focus="#FFFFFF", border_normal="#414143"),
     # layout.MonadWide(margin=8, border_width=2, border_focus="#5e81ac", border_normal="#4c566a"),
     # layout.Matrix(**layout_theme),
     # layout.Bsp(**layout_theme),
@@ -211,15 +211,15 @@ layouts = [
 # COLORS FOR THE BAR
 #Theme name : ArcoLinux Default
 def init_colors():
-    return [["#2F343F", "#2F343F"], # color 0
-            ["#2F343F", "#2F343F"], # color 1
-            ["#c0c5ce", "#c0c5ce"], # color 2
+    return [["#7f8c8d", "#7f8c8d"], # color 0 - active workspace color
+            ["#1E1E20", "#1E1E20"], # color 1 - background
+            ["#AAAAAC", "#AAAAAC"], # color 2 - font color
             ["#fba922", "#fba922"], # color 3
             ["#3384d0", "#3384d0"], # color 4
-            ["#f3f4f5", "#f3f4f5"], # color 5
+            ["#f3f4f5", "#f3f4f5"], # color 5 - font color on bar
             ["#cd1f3f", "#cd1f3f"], # color 6
             ["#62FF00", "#62FF00"], # color 7
-            ["#6790eb", "#6790eb"], # color 8
+            ["#464648", "#464648"], # color 8 - inactive workspaces color
             ["#a9a9a9", "#a9a9a9"]] # color 9
 
 
@@ -252,11 +252,11 @@ def init_widgets_list():
             padding_x = 5,
             borderwidth = 0,
             disable_drag = True,
-            active = colors[9],
-            inactive = colors[5],
+            active = colors[0],
+            inactive = colors[8],
             rounded = False,
             highlight_method = "text",
-            this_current_screen_border = colors[8],
+            this_current_screen_border = colors[5],
             foreground = colors[2],
             background = colors[1]
         ),
@@ -268,13 +268,13 @@ def init_widgets_list():
         ),
         widget.CurrentLayout(
             font = "Noto Sans Bold",
-            foreground = colors[5],
+            foreground = colors[2],
             background = colors[1]
         ),
         widget.Sep(
             linewidth = 1,
             padding = 10,
-            foreground = colors[2],
+            foreground = colors[5],
             background = colors[1]
         ),
         widget.Spacer(),
@@ -294,9 +294,24 @@ def init_widgets_list():
         widget.Net(
             font="Noto Sans",
             fontsize=12,
-            foreground=colors[5],
+            foreground=colors[2],
             background=colors[1],
-            format='{down}  ↓↑ {up}',
+            format='{down}',
+            padding=0,
+        ),
+        widget.TextBox(
+            font = "FontAwesome",
+            text = "    ",
+            foreground = colors[5],
+            background = colors[1],
+            fontsize = 16
+        ),
+        widget.Net(
+            font="Noto Sans",
+            fontsize=12,
+            foreground=colors[2],
+            background=colors[1],
+            format='{up}',
             padding=0,
         ),
         widget.Sep(
@@ -305,8 +320,15 @@ def init_widgets_list():
             foreground = colors[2],
             background = colors[1]
         ),
-        widget.ThermalSensor(
+        widget.TextBox(
+            font = "FontAwesome",
+            text = "  ",
             foreground = colors[5],
+            background = colors[1],
+            fontsize = 16
+        ),
+        widget.ThermalSensor(
+            foreground = colors[2],
             foreground_alert = colors[6],
             background = colors[1],
             metric = True,
@@ -322,7 +344,7 @@ def init_widgets_list():
         widget.TextBox(
             font="FontAwesome",
             text="  ",
-            foreground=colors[6],
+            foreground=colors[5],
             background=colors[1],
             padding = 0,
             fontsize=16
@@ -330,7 +352,7 @@ def init_widgets_list():
         widget.CPU(
               font="Noto Sans",
               format='{freq_current}GHz {load_percent}%',
-              foreground=colors[5],
+              foreground=colors[2],
               background=colors[1],
               padding=0,
               fontsize=12,
@@ -344,7 +366,7 @@ def init_widgets_list():
         widget.TextBox(
             font="FontAwesome",
             text="  ",
-            foreground=colors[4],
+            foreground=colors[5],
             background=colors[1],
             padding = 0,
             fontsize=16
@@ -354,7 +376,7 @@ def init_widgets_list():
             format = '{MemUsed:.0f}M/{MemTotal:.0f}M',
             update_interval = 1,
             fontsize = 12,
-            foreground = colors[5],
+            foreground = colors[2],
             background = colors[1],
        ),
         widget.Sep(
@@ -366,14 +388,14 @@ def init_widgets_list():
         widget.TextBox(
             font="FontAwesome",
             text="  ",
-            foreground=colors[3],
+            foreground=colors[5],
             background=colors[1],
             padding = 0,
             fontsize=16
         ),
         widget.Clock(
             font="Noto Sans",
-            foreground = colors[5],
+            foreground = colors[2],
             background = colors[1],
             fontsize = 12,
             format="%Y-%m-%d %H:%M"
@@ -387,12 +409,14 @@ def init_widgets_list():
         widget.TextBox(
             font="FontAwesome",
             text="  ",
-            foreground=colors[2],
+            foreground=colors[5],
             background=colors[1],
             padding = 0,
             fontsize=16
         ),
         widget.Backlight(
+            foreground = colors[2],
+            background = colors[1],
             backlight_name = "intel_backlight"
         ),
         widget.Sep(
@@ -404,12 +428,15 @@ def init_widgets_list():
         widget.TextBox(
             font = "FontAwesome",
             text = "  ",
-            foreground = colors[2],
+            foreground = colors[5],
             background = colors[1],
             padding = 0,
             fontsize = 16
         ),
-        widget.Volume(),
+        widget.Volume(
+            foreground = colors[2],
+            background = colors[1]
+        ),
         widget.Sep(
             linewidth = 1,
             padding = 10,
@@ -419,7 +446,7 @@ def init_widgets_list():
         widget.TextBox(
             font = "FontAwesome",
             text = "  ",
-            foreground = colors[2],
+            foreground = colors[5],
             background = colors[1],
             padding = 0,
             fontsize = 16
@@ -434,7 +461,9 @@ def init_widgets_list():
             low_percentage = 0.2,
             notify_below = 0.2,
             update_interval = 1,
-            format = "{char}{percent:2.0%}"
+            format = "{char}{percent:2.0%}",
+            foreground = colors[2],
+            background = colors[1],
         ),
         widget.Sep(
             linewidth = 1,
@@ -443,6 +472,7 @@ def init_widgets_list():
             background = colors[1]
         ),
         widget.Systray(
+            foreground = colors[2],
             background = colors[1],
             icon_size = 20,
             padding = 4
@@ -454,7 +484,6 @@ def init_widgets_list():
             background = colors[1],
             mouse_callbacks = {"Button1": open_notification_center},
             padding = 0,
-            fontsize = 11
         ),
     ]
     return widgets_list
@@ -475,7 +504,7 @@ widgets_screen2 = init_widgets_screen2()
 
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26, opacity=0.9))]
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26, opacity=1.0))]
 
 screens = init_screens()
 

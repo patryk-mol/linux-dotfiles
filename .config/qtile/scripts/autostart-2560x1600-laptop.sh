@@ -8,7 +8,7 @@ function run {
 }
 
 #starting utility applications at boot time
-feh --bg-fill /usr/share/backgrounds/space.jpg &
+feh --bg-fill /usr/share/backgrounds/nebula.jpg &
 run nm-applet &
 run pamac-tray &
 run numlockx on &
