@@ -7,14 +7,12 @@ from libqtile import layout, bar, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, Rule
 from libqtile.command import lazy
 from libqtile.widget import Spacer
-#import arcobattery
 
 #mod4 or mod = super key
 mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
 home = os.path.expanduser('~')
-
 
 @lazy.function
 def window_to_prev_group(qtile):
@@ -141,8 +139,14 @@ keys = [
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 10 -time 100")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 10 -time 100")),
 
+# SCREENSHOT KEYBINDS
+
+    Key([], "Print", lazy.spawn("xfce4-screenshooter -r -s Pictures/")),
+    Key(["shift"], "Print", lazy.spawn("xfce4-screenshooter -w -s Pictures/")),
+    Key([mod], "Print", lazy.spawn("xfce4-screenshooter -f -s Pictures/")),
+
 # MY KEYBINDS
-    Key([mod], "space", lazy.spawn("dmenu_run -p 'Run: '"), desc='Run Launcher'),
+    Key([mod], "space", lazy.spawn("ulauncher-toggle"), desc='Run Launcher'),
     Key([mod], "b", lazy.spawn("brave"), desc='Run Brave'),
     Key([mod], "v", lazy.spawn("bitwarden-desktop"), desc='Run Bitwarden'),
     Key([mod, "shift"], "x", lazy.spawn("archlinux-logout"), desc="Open logout window"),
@@ -605,6 +609,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='Archlinux-tweak-tool.py'),
     Match(wm_class='Arcolinux-calamares-tool.py'),
     Match(wm_class='confirm'),
+    Match(wm_class='ulauncher'),
     Match(wm_class='dialog'),
     Match(wm_class='download'),
     Match(wm_class='error'),
