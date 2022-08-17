@@ -1,0 +1,16 @@
+{
+    "com.github.hillaryychan.ulauncher-fzf": {
+        "id": "com.github.hillaryychan.ulauncher-fzf",
+        "url": "https://github.com/hillaryychan/ulauncher-fzf",
+        "updated_at": "2022-08-16T21:07:38.477166",
+        "last_commit": "a2d2d4e26dc8c5ecee808a9dd35ee8efddb71be9",
+        "last_commit_time": "2022-05-29T09:04:12"
+    },
+    "com.github.lighttigerxiv.ulauncher-terminal-runner-extension": {
+        "id": "com.github.lighttigerxiv.ulauncher-terminal-runner-extension",
+        "url": "https://github.com/lighttigerXIV/ulauncher-terminal-runner-extension/",
+        "updated_at": "2022-08-16T22:23:31.644622",
+        "last_commit": "8cbcf85e8b3a48a45d2d181488af6e5d89bff1b0",
+        "last_commit_time": "2022-05-22T12:33:25"
+    }
+}
