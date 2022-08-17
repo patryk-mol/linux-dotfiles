@@ -3,10 +3,10 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/projects/linux-dotfiles/ --work-tre
 alias ls='exa -alh'
 alias lsl='exa -lh'
 alias maintnance='~/projects/linux-scripts/update.sh'
-alias open=xdg-open
+alias open='xdg-open'
 alias less='bat --paging=always'
 alias cat='bat --paging=never'
-alias ps=procs
+alias ps='procs'
 alias mkdir='mkdir -p'
 alias df='df -h'
 alias free='free -m'
