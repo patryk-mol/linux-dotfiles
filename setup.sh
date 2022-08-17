@@ -10,7 +10,7 @@ git --git-dir=$HOME/projects/linux-dotfiles/ --work-tree=$HOME reset --hard
 
 # Apply theme
 
-echo "\n\nApplying theme...\n\n"
+echo "\n\nApplying themes...\n\n"
 
 git clone https://gitlab.com/pwyde/monochrome-kde.git ./projects/monochrome-kde
 cd .projects/monochrome-kde
@@ -23,3 +23,7 @@ cd ./projects/breeze-gtk/src/
 cp build_theme.sh.cmake build_theme.sh
 sed -i 's/@PYTHON_EXECUTABLE@/python/g' build_theme.sh
 sudo sh build_theme.sh -c Monochrome -t /usr/share/themes/Monochrome
+
+mkdir -p ~/.config/ulauncher/user-themes
+git clone git@github.com:patryk-mol/ulauncher-monochrome-theme.git ~/.config/ulauncher/user-themes/monochrome
+
