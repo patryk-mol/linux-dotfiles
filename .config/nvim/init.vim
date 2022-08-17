@@ -1,0 +1,4 @@
+" This line makes pacman-installed global Arch Linux vim packages work.
+source /usr/share/nvim/archlinux.vim
+set relativenumber
+highlight LineNr ctermfg=black ctermbg=grey

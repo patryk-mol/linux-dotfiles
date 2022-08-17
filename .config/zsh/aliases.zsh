@@ -12,6 +12,7 @@ alias df='df -h'
 alias free='free -m'
 alias ..='up'
 alias ssh='run-ssh-agent; /usr/bin/ssh'
+alias vim='nvim'
 
 # Package managers
 alias pmi="sudo pacman -Syu"
