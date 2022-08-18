@@ -16,7 +16,7 @@ run blueberry-tray &
 run ulauncher --no-window &
 run picom --experimental-backends --config $HOME/.config/picom/picom.conf &
 run /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-run xidlehook \
+xidlehook \
   --not-when-fullscreen \
   --not-when-audio \
   --timer 60 \
