@@ -1,4 +1,4 @@
-export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$PATH:$HOME/.cargo/bin:$HOME/Applications
 export EDITOR=nano
 export VISUAL=subl
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
