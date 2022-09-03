@@ -1,5 +1,6 @@
 # General
-alias dotfiles='/usr/bin/git --git-dir=$HOME/projects/linux-dotfiles/ --work-tree=$HOME'
+alias git='run-ssh-agent; /usr/bin/git'
+alias dotfiles='git --git-dir=$HOME/projects/linux-dotfiles/ --work-tree=$HOME'
 alias ls='exa -alh'
 alias lsl='exa -lh'
 alias maintnance='~/projects/linux-scripts/update.sh'
