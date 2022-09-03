@@ -345,8 +345,10 @@ def init_widgets_list_display2():
             active = colors[0],
             inactive = colors[8],
             rounded = False,
-            highlight_method = "text",
+            highlight_method = "block",
+            block_highlight_text_color = colors[7],
             this_current_screen_border = colors[5],
+            this_screen_border = colors[5],
             foreground = colors[2],
             background = colors[1]
         ),
@@ -378,8 +380,10 @@ def init_widgets_list_display3():
             active = colors[0],
             inactive = colors[8],
             rounded = False,
-            highlight_method = "text",
+            highlight_method = "block",
+            block_highlight_text_color = colors[7],
             this_current_screen_border = colors[5],
+            this_screen_border = colors[5],
             foreground = colors[2],
             background = colors[1]
         ),
