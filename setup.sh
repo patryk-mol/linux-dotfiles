@@ -2,7 +2,7 @@
 
 # Apply dotfiles
 
-echo "Applying dotfiles...\n\n"
+print "Applying dotfiles...\n\n"
 
 git clone --bare git@github.com:patryk-mol/linux-dotfiles.git ./projects/linux-dotfiles
 git --git-dir=$HOME/projects/linux-dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
@@ -10,7 +10,7 @@ git --git-dir=$HOME/projects/linux-dotfiles/ --work-tree=$HOME reset --hard
 
 # Apply theme
 
-echo "\n\nApplying themes...\n\n"
+print "\n\nApplying themes...\n\n"
 
 git clone https://gitlab.com/pwyde/monochrome-kde.git ./projects/monochrome-kde
 cd .projects/monochrome-kde
@@ -30,12 +30,13 @@ git clone git@github.com:patryk-mol/ulauncher-monochrome-theme.git ~/.config/ula
 
 # Install plugins for Neovim
 
-echo "\n\nInstalling Neovim plugins...\n\n"
+print "\n\nInstalling Neovim plugins...\n\n"
+
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-echo "\n\nAfter starting Neovim exectue following commands:\n"
-echo ": PlugInstall\n"
-echo ": TSInstall bash c cpp css dockerfile gitignore json python swift yaml\n"
-echo "\n"
+print "\n\nAfter starting Neovim exectue following commands:\n"
+print ": PlugInstall\n"
+print ": TSInstall bash c cpp css dockerfile gitignore json python swift yaml\n"
+print "\n"
 
