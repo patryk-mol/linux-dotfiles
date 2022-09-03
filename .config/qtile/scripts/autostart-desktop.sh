@@ -11,7 +11,7 @@ xidlehook \
   --not-when-fullscreen \
   --not-when-audio \
   --timer 300 \
-    'betterlockscreen -l' \
+    'betterlockscreen -l --display 1' \
     '' \
   --timer 600 \
     'systemctl suspend' \

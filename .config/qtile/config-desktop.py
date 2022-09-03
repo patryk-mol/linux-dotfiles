@@ -3,7 +3,7 @@ import re
 import socket
 import subprocess
 from typing import List  # noqa: F401
-from libqtile import layout, bar, widget, hook
+from libqtile import layout, bar, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, Rule
 from libqtile.command import lazy
 from libqtile.widget import Spacer
@@ -26,21 +26,45 @@ def window_to_next_group(qtile):
         i = qtile.groups.index(qtile.currentGroup)
         qtile.currentWindow.togroup(qtile.groups[i + 1].name)
 
+def next_screen_number():
+    current_screen = qtile.screens.index(qtile.current_screen)
+    if current_screen is 0:
+        return 2
+    if current_screen is 1:
+        return 0
+    if current_screen is 2:
+        return 2
+    return current_screen
+
+@lazy.function
+def move_screen_focus_left(qtile):
+    qtile.cmd_to_screen(next_screen_number())
+
+def prev_screen_number():
+    current_screen = qtile.screens.index(qtile.current_screen)
+    if current_screen is 0:
+        return 1
+    if current_screen is 1:
+        return 1
+    if current_screen is 2:
+        return 0
+    return current_screen
+
+@lazy.function
+def move_screen_focus_right(qtile):
+    qtile.cmd_to_screen(prev_screen_number())
+
 keys = [
 
 # Most of our keybindings are in sxhkd file - except these
 
 # SUPER + FUNCTION KEYS
-
     Key([mod], "f", lazy.window.toggle_fullscreen()),
     Key([mod], "q", lazy.window.kill()),
 
-
 # SUPER + SHIFT KEYS
-
     Key([mod, "shift"], "q", lazy.window.kill()),
     Key([mod, "shift"], "r", lazy.restart()),
-
 
 # QTILE LAYOUT KEYS
     Key([mod], "n", lazy.layout.normalize()),
@@ -55,7 +79,6 @@ keys = [
     Key([mod], "j", lazy.layout.down()),
     Key([mod], "h", lazy.layout.left()),
     Key([mod], "l", lazy.layout.right()),
-
 
 # RESIZE UP, DOWN, LEFT, RIGHT
     Key([mod, "control"], "l",
@@ -103,15 +126,12 @@ keys = [
         lazy.layout.increase_nmaster(),
         ),
 
-
 # FLIP LAYOUT FOR MONADTALL/MONADWIDE
     Key([mod, "shift"], "f", lazy.layout.flip()),
 
-# FLIP LAYOUT FOR BSP
-    Key([mod, "mod1"], "k", lazy.layout.flip_up()),
-    Key([mod, "mod1"], "j", lazy.layout.flip_down()),
-    Key([mod, "mod1"], "l", lazy.layout.flip_right()),
-    Key([mod, "mod1"], "h", lazy.layout.flip_left()),
+# MOVE ACTIVE SCREEN
+    Key([mod, "mod1"], "l", move_screen_focus_left()),
+    Key([mod, "mod1"], "h", move_screen_focus_right()),
 
 # MOVE WINDOWS UP OR DOWN BSP LAYOUT
     Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
@@ -129,32 +149,28 @@ keys = [
     Key([mod, "shift"], "space", lazy.window.toggle_floating()),
 
 # VOLUME KEYBINDS
-
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -D pulse sset Master 2%+")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -D pulse sset Master 2%-")),
     Key([], "XF86AudioMute", lazy.spawn("amixer -D pulse sset Master toogle")),
 
 # BRIGHTNESS KEYBINDS
-
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 10 -time 100")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 10 -time 100")),
 
 # SCREENSHOT KEYBINDS
-
     Key([], "Print", lazy.spawn("xfce4-screenshooter -r -s Pictures/")),
     Key(["shift"], "Print", lazy.spawn("xfce4-screenshooter -w -s Pictures/")),
     Key([mod], "Print", lazy.spawn("xfce4-screenshooter -f -s Pictures/")),
 
 # MY KEYBINDS
-    Key([mod], "space", lazy.spawn("ulauncher-toggle"), desc='Run Launcher'),
+    #Key([mod], "space", lazy.spawn("ulauncher-toggle"), desc='Run Launcher'),
     Key([mod], "b", lazy.spawn("brave"), desc='Run Brave'),
     Key([mod], "v", lazy.spawn("bitwarden-desktop"), desc='Run Bitwarden'),
     Key([mod, "shift"], "x", lazy.spawn("archlinux-logout"), desc="Open logout window"),
     Key([mod], "Return", lazy.spawn("alacritty"), desc='Run Alacritty'),
     Key([mod], "t", lazy.spawn("thunar"), desc='Run Thunar'),
     Key([mod, "mod1"], "space", lazy.spawn("xfce4-appfinder"), desc="Open AppFinder"),
-
-    ]
+]
 
 groups = []
 
@@ -186,11 +202,10 @@ for i in groups:
         Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()),
 
 # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND STAY ON WORKSPACE
-        #Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
 # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND FOLLOW MOVED WINDOW TO WORKSPACE
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
+        #Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
     ])
-
 
 def init_layout_theme():
     return {"margin":2,
@@ -201,14 +216,10 @@ def init_layout_theme():
 
 layout_theme = init_layout_theme()
 
-
 layouts = [
     layout.MonadTall(margin=6, border_width=2, border_focus="#FFFFFF", border_normal="#414143"),
-    # layout.MonadWide(margin=8, border_width=2, border_focus="#5e81ac", border_normal="#4c566a"),
-    # layout.Matrix(**layout_theme),
-    # layout.Bsp(**layout_theme),
-    # layout.Floating(**layout_theme),
-    # layout.RatioTile(**layout_theme),
+    layout.MonadThreeCol(margin=6, border_width=2, border_focus="#FFFFFF", border_normal="#414143"),
+    layout.MonadWide(margin=6, border_width=2, border_focus="#FFFFFF", border_normal="#414143"),
     layout.Max(**layout_theme)
 ]
 
@@ -226,9 +237,7 @@ def init_colors():
             ["#464648", "#464648"], # color 8 - inactive workspaces color
             ["#a9a9a9", "#a9a9a9"]] # color 9
 
-
 colors = init_colors()
-
 
 # WIDGETS FOR THE BAR
 
@@ -263,142 +272,37 @@ def init_widgets_list_display1():
             foreground = colors[2],
             background = colors[1]
         ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.WindowCount(
-            font = "Noto Sans Bold",
-            foreground = colors[2],
-            background = colors[1],
-            show_zero = True,
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.CurrentLayout(
-            font = "Noto Sans Bold",
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.CurrentScreen(
-            font = "Noto Sans Bold",
-            active_color = colors[2],
-            inactive_color = colors[8],
-            active_text = "active",
-            inactive_text = "active",
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.WindowCount(font = "Noto Sans Bold", foreground = colors[2], background = colors[1], show_zero = True),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.CurrentLayout(font = "Noto Sans Bold", foreground = colors[2], background = colors[1]),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.CurrentScreen(font = "Noto Sans Bold", active_color = colors[2], inactive_color = colors[8], active_text = "active", inactive_text = "active"),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
         widget.Spacer(),
-        widget.WindowName(font="Noto Sans",
-            fontsize = 14,
-            foreground = colors[5],
-            background = colors[1],
-            width=bar.CALCULATED,
-        ),
+        widget.WindowName(font="Noto Sans", fontsize = 14, foreground = colors[5], background = colors[1], width=bar.CALCULATED),
         widget.Spacer(),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.Net(
-            font="Noto Sans",
-            fontsize=12,
-            foreground=colors[2],
-            background=colors[1],
-            format='{down}',
-            padding=0,
-        ),
-        widget.TextBox(
-            font = "FontAwesome",
-            text = "    ",
-            foreground = colors[5],
-            background = colors[1],
-            fontsize = 16
-        ),
-        widget.Net(
-            font="Noto Sans",
-            fontsize=12,
-            foreground=colors[2],
-            background=colors[1],
-            format='{up}',
-            padding=0,
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.TextBox(
-            font = "FontAwesome",
-            text = "  ",
-            foreground = colors[5],
-            background = colors[1],
-            fontsize = 16
-        ),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.Net(font="Noto Sans", fontsize = 12, foreground = colors[2], background = colors[1], format = '{down}', padding = 0),
+        widget.TextBox(font = "FontAwesome", text = "    ", foreground = colors[5], background = colors[1], fontsize = 16),
+        widget.Net(font="Noto Sans", fontsize = 12, foreground = colors[2], background = colors[1], format = '{up}', padding = 0),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.TextBox(font = "FontAwesome", text = "  ", foreground = colors[5], background = colors[1], fontsize = 16),
         widget.ThermalSensor(
             foreground = colors[2],
             foreground_alert = colors[6],
             background = colors[1],
             metric = True,
             padding = 3,
-            threshold = 80
+            threshold = 80,
+            update_interval = 1,
+            tag_sensor = "CPU",
         ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1],
-        ),
-        widget.TextBox(
-            font="FontAwesome",
-            text="  ",
-            foreground=colors[5],
-            background=colors[1],
-            padding = 0,
-            fontsize=16
-        ),
-        widget.CPU(
-              font="Noto Sans",
-              format='{freq_current}GHz {load_percent}%',
-              foreground=colors[2],
-              background=colors[1],
-              padding=0,
-              fontsize=12,
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.TextBox(
-            font="FontAwesome",
-            text="  ",
-            foreground=colors[5],
-            background=colors[1],
-            padding = 0,
-            fontsize=16
-        ),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.TextBox(font = "FontAwesome", text = "  ", foreground = colors[5], background = colors[1], padding = 0, fontsize = 16),
+        widget.CPU(font = "Noto Sans", format = '{freq_current}GHz {load_percent}%', foreground = colors[2], background = colors[1], padding = 0, fontsize = 12),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.TextBox(font = "FontAwesome", text = "  ", foreground = colors[5], background = colors[1], padding = 0, fontsize = 16),
         widget.Memory(
             font="Noto Sans",
             format = '{MemUsed:.0f}M/{MemTotal:.0f}M',
@@ -406,58 +310,15 @@ def init_widgets_list_display1():
             fontsize = 12,
             foreground = colors[2],
             background = colors[1],
-       ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,  
-            foreground = colors[2],
-            background = colors[1]
         ),
-        widget.TextBox(
-            font="FontAwesome",
-            text="  ",
-            foreground=colors[5],
-            background=colors[1],
-            padding = 0,
-            fontsize=16
-        ),
-        widget.Clock(
-            font="Noto Sans",
-            foreground = colors[2],
-            background = colors[1],
-            fontsize = 12,
-            format="%Y-%m-%d %H:%M"
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.TextBox(
-            font = "FontAwesome",
-            text = "  ",
-            foreground = colors[5],
-            background = colors[1],
-            padding = 0,
-            fontsize = 16
-        ),
-        widget.Volume(
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.Systray(
-            foreground = colors[2],
-            background = colors[1],
-            icon_size = 20,
-            padding = 4
-        ),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.TextBox(font = "FontAwesome", text = "  ", foreground = colors[5], background = colors[1], padding = 0, fontsize = 16),
+        widget.Clock(font = "Noto Sans", foreground = colors[2], background = colors[1], fontsize = 12, format = "%Y-%m-%d %H:%M"),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.TextBox(font = "FontAwesome", text = "  ", foreground = colors[5], background = colors[1], padding = 0, fontsize = 16),
+        widget.Volume(foreground = colors[2], background = colors[1]),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.Systray(foreground = colors[2], background = colors[1], icon_size = 20, padding = 4),
         widget.TextBox(
             font = "FontAwesome",
             text = "      ",
@@ -488,63 +349,17 @@ def init_widgets_list_display2():
             foreground = colors[2],
             background = colors[1]
         ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.WindowCount(
-            font = "Noto Sans Bold",
-            foreground = colors[2],
-            background = colors[1],
-            show_zero = True,
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.CurrentLayout(
-            font = "Noto Sans Bold",
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.CurrentScreen(
-            font = "Noto Sans Bold",
-            active_color = colors[2],
-            inactive_color = colors[8],
-            active_text = "active",
-            inactive_text = "active",
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.WindowCount(font = "Noto Sans Bold", foreground = colors[2], background = colors[1], show_zero = True),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.CurrentLayout(font = "Noto Sans Bold", foreground = colors[2], background = colors[1]),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.CurrentScreen(font = "Noto Sans Bold", active_color = colors[2], inactive_color = colors[8], active_text = "active", inactive_text = "active"),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
         widget.Spacer(),
-        widget.WindowName(font="Noto Sans",
-            fontsize = 14,
-            foreground = colors[5],
-            background = colors[1],
-            width=bar.CALCULATED,
-        ),
+        widget.WindowName(font = "Noto Sans", fontsize = 14, foreground = colors[5], background = colors[1], width=bar.CALCULATED),
         widget.Spacer(),
-        widget.Clock(
-            font="Noto Sans",
-            foreground = colors[2],
-            background = colors[1],
-            fontsize = 12,
-            format="%Y-%m-%d %H:%M"
-        ),
+        widget.Clock(font="Noto Sans", foreground = colors[2], background = colors[1], fontsize = 12, format="%Y-%m-%d %H:%M"),
     ]
     return widgets_list
 
@@ -567,63 +382,17 @@ def init_widgets_list_display3():
             foreground = colors[2],
             background = colors[1]
         ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.WindowCount(
-            font = "Noto Sans Bold",
-            foreground = colors[2],
-            background = colors[1],
-            show_zero = True,
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.CurrentLayout(
-            font = "Noto Sans Bold",
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.CurrentScreen(
-            font = "Noto Sans Bold",
-            active_color = colors[2],
-            inactive_color = colors[8],
-            active_text = "active",
-            inactive_text = "active",
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.WindowCount(font = "Noto Sans Bold", foreground = colors[2], background = colors[1], show_zero = True),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.CurrentLayout(font = "Noto Sans Bold", foreground = colors[2], background = colors[1]),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.CurrentScreen(font = "Noto Sans Bold", active_color = colors[2], inactive_color = colors[8], active_text = "active", inactive_text = "active"),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
         widget.Spacer(),
-        widget.WindowName(font="Noto Sans",
-            fontsize = 14,
-            foreground = colors[5],
-            background = colors[1],
-            width=bar.CALCULATED,
-        ),
+        widget.WindowName(font = "Noto Sans", fontsize = 14, foreground = colors[5], background = colors[1], width=bar.CALCULATED),
         widget.Spacer(),
-        widget.Clock(
-            font="Noto Sans",
-            foreground = colors[2],
-            background = colors[1],
-            fontsize = 12,
-            format="%Y-%m-%d %H:%M"
-        ),
+        widget.Clock(font="Noto Sans", foreground = colors[2], background = colors[1], fontsize = 12, format="%Y-%m-%d %H:%M"),
     ]
     return widgets_list
 
@@ -647,7 +416,6 @@ def init_screens():
     ]
 
 screens = init_screens()
-
 
 # MOUSE CONFIGURATION
 mouse = [
@@ -726,7 +494,6 @@ def set_floating(window):
         window.floating = True
 
 floating_types = ["notification", "toolbar", "splash", "dialog"]
-
 
 follow_mouse_focus = True
 bring_front_click = False
