@@ -28,5 +28,15 @@
         "is_default_search": true,
         "run_without_argument": false,
         "added": 1660673833.4265473
+    },
+    "952aa2ad-d36c-4f29-b0f3-a4494b2817ab": {
+        "id": "952aa2ad-d36c-4f29-b0f3-a4494b2817ab",
+        "name": "Sonixd",
+        "keyword": "Sonixd",
+        "cmd": "$HOME/Applications/Sonixd*.AppImage",
+        "icon": null,
+        "is_default_search": false,
+        "run_without_argument": true,
+        "added": 1662211597.0040164
     }
 }
