@@ -224,7 +224,6 @@ layouts = [
 ]
 
 # COLORS FOR THE BAR
-#Theme name : ArcoLinux Default
 def init_colors():
     return [["#7f8c8d", "#7f8c8d"], # color 0 - active workspace color
             ["#1E1E20", "#1E1E20"], # color 1 - background
@@ -233,7 +232,7 @@ def init_colors():
             ["#3384d0", "#3384d0"], # color 4
             ["#f3f4f5", "#f3f4f5"], # color 5 - font color on bar
             ["#cd1f3f", "#cd1f3f"], # color 6
-            ["#62FF00", "#62FF00"], # color 7
+            ["#232324", "#232324"], # color 7
             ["#464648", "#464648"], # color 8 - inactive workspaces color
             ["#a9a9a9", "#a9a9a9"]] # color 9
 
@@ -267,8 +266,10 @@ def init_widgets_list_display1():
             active = colors[0],
             inactive = colors[8],
             rounded = False,
-            highlight_method = "text",
+            highlight_method = "block",
+            block_highlight_text_color = colors[7],
             this_current_screen_border = colors[5],
+            this_screen_border = colors[5],
             foreground = colors[2],
             background = colors[1]
         ),
