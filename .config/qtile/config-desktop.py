@@ -286,7 +286,7 @@ def init_widgets_list_display1():
         widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
         widget.Net(font="Noto Sans", fontsize = 12, foreground = colors[2], background = colors[1], format = '{down}', padding = 0),
         widget.TextBox(font = "FontAwesome", text = "    ", foreground = colors[5], background = colors[1], fontsize = 16),
-        widget.Net(font="Noto Sans", fontsize = 12, foreground = colors[2], background = colors[1], format = '{up}', padding = 0),
+        widget.Net(font="Noto Sans", fontsize = 12, foreground = colors[2], background = colors[1], format = '{up} ', padding = 0),
         widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
         widget.TextBox(font = "FontAwesome", text = "  ", foreground = colors[5], background = colors[1], fontsize = 16),
         widget.ThermalSensor(
