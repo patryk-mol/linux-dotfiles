@@ -253,6 +253,7 @@ def open_notification_center():
     subprocess.call([home + '/.config/qtile/scripts/show-notification-center.sh'])
 
 def init_widgets_list_display1():
+    home = os.path.expanduser('~')
     widgets_list = [
         widget.GroupBox(
             font="FontAwesome",
@@ -316,7 +317,14 @@ def init_widgets_list_display1():
         widget.TextBox(font = "FontAwesome", text = "  ", foreground = colors[5], background = colors[1], padding = 0, fontsize = 16),
         widget.Clock(font = "Noto Sans", foreground = colors[2], background = colors[1], fontsize = 12, format = "%Y-%m-%d %H:%M"),
         widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
-        widget.TextBox(font = "FontAwesome", text = "  ", foreground = colors[5], background = colors[1], padding = 0, fontsize = 16),
+        widget.GenPollText(
+            font = "FontAwesome",
+            fontsize = 16,
+            foreground = colors[5],
+            background = colors[1],
+            update_interval=1,
+            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(home + '/.config/qtile/scripts/change-audio-output.sh')},
+            func=lambda: subprocess.check_output(home + '/.config/qtile/scripts/current-audio-output.sh').decode("utf-8")),
         widget.Volume(foreground = colors[2], background = colors[1]),
         widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
         widget.Systray(foreground = colors[2], background = colors[1], icon_size = 20, padding = 4),
@@ -449,7 +457,7 @@ dgroups_app_rules = []
 #               "navigator", "firefox", "vivaldi-stable", "vivaldi-snapshot", "chromium", "google-chrome", "brave", "brave-browser", ]
 #     d[group_names[1]] = [ "Atom", "Subl", "Geany", "Brackets", "Code-oss", "Code", "TelegramDesktop", "Discord",
 #                "atom", "subl", "geany", "brackets", "code-oss", "code", "telegramDesktop", "discord", ]
-#     d[group_names[2]] = ["Inkscape", "Nomacs", "Ristretto", "Nitrogen", "Feh",
+#     d[group_names[2]] = ["Inkscape", "Nomacs", "Ristretto", "Nitrogen", "Feh",activeSink=$(pacmd list-sinks | grep "* index" | cut -d ':' -f 2 | sed -r 's/\s+//g')
 #               "inkscape", "nomacs", "ristretto", "nitrogen", "feh", ]
 #     d[group_names[3]] = ["Gimp", "gimp" ]
 #     d[group_names[4]] = ["Meld", "meld", "org.gnome.meld" "org.gnome.Meld" ]
