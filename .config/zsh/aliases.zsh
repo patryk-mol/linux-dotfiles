@@ -19,9 +19,11 @@ alias vim='nvim'
 alias pmi="sudo pacman -Syu"
 alias pmr="sudo pacman -Rcns"
 alias pmc="sudo pacman -R $(pacman -Qdtq)"
+alias pms="pacman -Ss"
 alias pri="paru -Syu"
 alias prr="paru -Rcns"
 alias prc="paru -R $(paru -Qdtq)"
+alias prs="paru -Ss"
 
 # Interactive mode for destructive operations
 alias cp='cp -i'
