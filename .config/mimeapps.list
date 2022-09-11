@@ -45,8 +45,8 @@ application/x-yaml=sublime_text.desktop;code-oss.desktop;visual-studio-code.desk
 application/xml=sublime_text.desktop;code-oss.desktop;visual-studio-code.desktop;
 application/zip=org.gnome.FileRoller.desktop;xarchiver.desktop;
 audio/mp4=pragha.desktop;
-audio/mpeg=pragha.desktop;
-audio/x-wav=pragha.desktop;
+audio/mpeg=mediainfo-gui.desktop;pragha.desktop;
+audio/x-wav=audacious.desktop;mediainfo-gui.desktop;pragha.desktop;
 font/ttf=org.gnome.FontViewer.desktop;
 image/gif=org.kde.gwenview.desktop;org.nomacs.ImageLounge.desktop;org.xfce.ristretto.desktop;
 image/jpeg=org.kde.gwenview.desktop;org.nomacs.ImageLounge.desktop;gimp.desktop;ristretto.desktop;
@@ -97,6 +97,7 @@ image/x-pixmap=org.xfce.ristretto.desktop;
 image/tiff=org.xfce.ristretto.desktop;
 image/x-xpixmap=org.xfce.ristretto.desktop;
 application/xhtml+xml=brave-browser.desktop;
+application/x-cue=sublime_text.desktop;
 
 [Default Applications]
 x-scheme-handler/mailspring=Mailspring.desktop
