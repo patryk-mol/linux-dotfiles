@@ -7,6 +7,7 @@ numlockx on &
 ulauncher --no-window &
 picom --experimental-backends --config $HOME/.config/picom/picom.conf &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+deadd-notification-center &
 steam &
 xidlehook \
   --not-when-fullscreen \
