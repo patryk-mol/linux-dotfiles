@@ -27,17 +27,12 @@ def window_to_next_group(qtile):
         qtile.currentWindow.togroup(qtile.groups[i + 1].name)
 
 keys = [
-
-# Most of our keybindings are in sxhkd file - except these
-
 # SUPER + FUNCTION KEYS
-
     Key([mod], "f", lazy.window.toggle_fullscreen()),
     Key([mod], "q", lazy.window.kill()),
 
 
 # SUPER + SHIFT KEYS
-
     Key([mod, "shift"], "q", lazy.window.kill()),
     Key([mod, "shift"], "r", lazy.restart()),
 
@@ -103,7 +98,6 @@ keys = [
         lazy.layout.increase_nmaster(),
         ),
 
-
 # FLIP LAYOUT FOR MONADTALL/MONADWIDE
     Key([mod, "shift"], "f", lazy.layout.flip()),
 
@@ -129,18 +123,15 @@ keys = [
     Key([mod, "shift"], "space", lazy.window.toggle_floating()),
 
 # VOLUME KEYBINDS
-
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -D pulse sset Master 2%+")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -D pulse sset Master 2%-")),
     Key([], "XF86AudioMute", lazy.spawn("amixer -D pulse sset Master toogle")),
 
 # BRIGHTNESS KEYBINDS
-
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 10 -time 100")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 10 -time 100")),
 
 # SCREENSHOT KEYBINDS
-
     Key([], "Print", lazy.spawn("xfce4-screenshooter -r -s Pictures/")),
     Key(["shift"], "Print", lazy.spawn("xfce4-screenshooter -w -s Pictures/")),
     Key([mod], "Print", lazy.spawn("xfce4-screenshooter -f -s Pictures/")),
@@ -153,8 +144,7 @@ keys = [
     Key([mod], "Return", lazy.spawn("alacritty"), desc='Run Alacritty'),
     Key([mod], "t", lazy.spawn("thunar"), desc='Run Thunar'),
     Key([mod, "mod1"], "space", lazy.spawn("xfce4-appfinder"), desc="Open AppFinder"),
-
-    ]
+]
 
 groups = []
 
@@ -162,8 +152,8 @@ groups = []
 group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0",]
 
 #group_labels = ["1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 ", "0",]
-group_labels = ["", "", "", "", "", "", "", "", "", "",]
-#group_labels = ["Web", "Edit/chat", "Image", "Gimp", "Meld", "Video", "Vb", "Files", "Mail", "Music",]
+group_labels = ["", "", "", "", "", "", "", "", "", "",]
+#group_labels = ["Web", "Work", "Code", "Files", "VM", "Video", "Gaming", "Mail", "Chat", "Music",]
 
 group_layouts = ["max", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall",]
 
@@ -186,34 +176,29 @@ for i in groups:
         Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()),
 
 # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND STAY ON WORKSPACE
-        #Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
 # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND FOLLOW MOVED WINDOW TO WORKSPACE
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
+        #Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
     ])
 
-
 def init_layout_theme():
-    return {"margin":2,
-            "border_width":2,
-            "border_focus": "#aaaaac",
-            "border_normal": "#464648"
-            }
+    return {
+        "margin":2,
+        "border_width":2,
+        "border_focus": "#aaaaac",
+        "border_normal": "#464648"
+    }
 
 layout_theme = init_layout_theme()
 
-
 layouts = [
     layout.MonadTall(margin=6, border_width=2, border_focus="#FFFFFF", border_normal="#414143"),
-    # layout.MonadWide(margin=8, border_width=2, border_focus="#5e81ac", border_normal="#4c566a"),
-    # layout.Matrix(**layout_theme),
-    # layout.Bsp(**layout_theme),
-    # layout.Floating(**layout_theme),
-    # layout.RatioTile(**layout_theme),
+    layout.MonadThreeCol(margin=6, border_width=2, border_focus="#FFFFFF", border_normal="#414143"),
+    layout.MonadWide(margin=6, border_width=2, border_focus="#FFFFFF", border_normal="#414143"),
     layout.Max(**layout_theme)
 ]
 
 # COLORS FOR THE BAR
-#Theme name : ArcoLinux Default
 def init_colors():
     return [["#7f8c8d", "#7f8c8d"], # color 0 - active workspace color
             ["#1E1E20", "#1E1E20"], # color 1 - background
@@ -222,16 +207,13 @@ def init_colors():
             ["#3384d0", "#3384d0"], # color 4
             ["#f3f4f5", "#f3f4f5"], # color 5 - font color on bar
             ["#cd1f3f", "#cd1f3f"], # color 6
-            ["#62FF00", "#62FF00"], # color 7
+            ["#232324", "#232324"], # color 7
             ["#464648", "#464648"], # color 8 - inactive workspaces color
             ["#a9a9a9", "#a9a9a9"]] # color 9
 
-
 colors = init_colors()
 
-
 # WIDGETS FOR THE BAR
-
 def init_widgets_defaults():
     return dict(font="Noto Sans",
                 fontsize = 12,
@@ -259,122 +241,40 @@ def init_widgets_list():
             active = colors[0],
             inactive = colors[8],
             rounded = False,
-            highlight_method = "text",
+            highlight_method = "block",
+            block_highlight_text_color = colors[7],
             this_current_screen_border = colors[5],
+            this_screen_border = colors[5],
             foreground = colors[2],
             background = colors[1]
         ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.CurrentLayout(
-            font = "Noto Sans Bold",
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[5],
-            background = colors[1]
-        ),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.CurrentLayout(font = "Noto Sans Bold", foreground = colors[2], background = colors[1]),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
         widget.Spacer(),
-        widget.WindowName(font="Noto Sans",
-            fontsize = 14,
-            foreground = colors[5],
-            background = colors[1],
-            width=bar.CALCULATED,
-        ),
+        widget.WindowName(font="Noto Sans", fontsize = 14, foreground = colors[5], background = colors[1], width=bar.CALCULATED),
         widget.Spacer(),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.Net(
-            font="Noto Sans",
-            fontsize=12,
-            foreground=colors[2],
-            background=colors[1],
-            format='{down}',
-            padding=0,
-        ),
-        widget.TextBox(
-            font = "FontAwesome",
-            text = "    ",
-            foreground = colors[5],
-            background = colors[1],
-            fontsize = 16
-        ),
-        widget.Net(
-            font="Noto Sans",
-            fontsize=12,
-            foreground=colors[2],
-            background=colors[1],
-            format='{up}',
-            padding=0,
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.TextBox(
-            font = "FontAwesome",
-            text = "  ",
-            foreground = colors[5],
-            background = colors[1],
-            fontsize = 16
-        ),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.Net(font="Noto Sans", fontsize = 12, foreground = colors[2], background = colors[1], format = '{down}', padding = 0),
+        widget.TextBox(font = "FontAwesome", text = "    ", foreground = colors[5], background = colors[1], fontsize = 16),
+        widget.Net(font="Noto Sans", fontsize = 12, foreground = colors[2], background = colors[1], format = '{up} ', padding = 0),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.TextBox(font = "FontAwesome", text = "  ", foreground = colors[5], background = colors[1], fontsize = 16),
         widget.ThermalSensor(
             foreground = colors[2],
             foreground_alert = colors[6],
             background = colors[1],
             metric = True,
             padding = 3,
-            threshold = 80
+            threshold = 80,
+            update_interval = 1,
+            tag_sensor = "Package id 0",
         ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1],
-        ),
-        widget.TextBox(
-            font="FontAwesome",
-            text="  ",
-            foreground=colors[5],
-            background=colors[1],
-            padding = 0,
-            fontsize=16
-        ),
-        widget.CPU(
-              font="Noto Sans",
-              format='{freq_current}GHz {load_percent}%',
-              foreground=colors[2],
-              background=colors[1],
-              padding=0,
-              fontsize=12,
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.TextBox(
-            font="FontAwesome",
-            text="  ",
-            foreground=colors[5],
-            background=colors[1],
-            padding = 0,
-            fontsize=16
-        ),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.TextBox(font = "FontAwesome", text = "  ", foreground = colors[5], background = colors[1], padding = 0, fontsize = 16),
+        widget.CPU(font = "Noto Sans", format = '{freq_current}GHz {load_percent}%', foreground = colors[2], background = colors[1], padding = 0, fontsize = 12),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.TextBox(font = "FontAwesome", text = "  ", foreground = colors[5], background = colors[1], padding = 0, fontsize = 16),
         widget.Memory(
             font="Noto Sans",
             format = '{MemUsed:.0f}M/{MemTotal:.0f}M',
@@ -382,53 +282,11 @@ def init_widgets_list():
             fontsize = 12,
             foreground = colors[2],
             background = colors[1],
-       ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,  
-            foreground = colors[2],
-            background = colors[1]
         ),
-        widget.TextBox(
-            font="FontAwesome",
-            text="  ",
-            foreground=colors[5],
-            background=colors[1],
-            padding = 0,
-            fontsize=16
-        ),
-        widget.Clock(
-            font="Noto Sans",
-            foreground = colors[2],
-            background = colors[1],
-            fontsize = 12,
-            format="%Y-%m-%d %H:%M"
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.TextBox(
-            font="FontAwesome",
-            text="  ",
-            foreground=colors[5],
-            background=colors[1],
-            padding = 0,
-            fontsize=16
-        ),
-        widget.Backlight(
-            foreground = colors[2],
-            background = colors[1],
-            backlight_name = "intel_backlight"
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.TextBox(font = "FontAwesome", text = "  ", foreground = colors[5], background = colors[1], padding = 0, fontsize = 16),
+        widget.Clock(font = "Noto Sans", foreground = colors[2], background = colors[1], fontsize = 12, format = "%Y-%m-%d %H:%M"),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
         widget.TextBox(
             font = "FontAwesome",
             text = "  ",
@@ -437,50 +295,9 @@ def init_widgets_list():
             padding = 0,
             fontsize = 16
         ),
-        widget.Volume(
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.TextBox(
-            font = "FontAwesome",
-            text = "  ",
-            foreground = colors[5],
-            background = colors[1],
-            padding = 0,
-            fontsize = 16
-        ),
-        widget.Battery(
-            battery = "CMB0",
-            charge_char = " ",
-            full_char = "",
-            discharge_char = "",
-            empty_char = "",
-            unknown_char = "",
-            low_percentage = 0.2,
-            notify_below = 0.2,
-            update_interval = 1,
-            format = "{char}{percent:2.0%}",
-            foreground = colors[2],
-            background = colors[1],
-        ),
-        widget.Sep(
-            linewidth = 1,
-            padding = 10,
-            foreground = colors[2],
-            background = colors[1]
-        ),
-        widget.Systray(
-            foreground = colors[2],
-            background = colors[1],
-            icon_size = 20,
-            padding = 4
-        ),
+        widget.Volume(foreground = colors[2],background = colors[1]),
+        widget.Sep(linewidth = 1, padding = 10, foreground = colors[2], background = colors[1]),
+        widget.Systray(foreground = colors[2], background = colors[1], icon_size = 20, padding = 4),
         widget.TextBox(
             font = "FontAwesome",
             text = "      ",
@@ -495,23 +312,16 @@ def init_widgets_list():
 widgets_list = init_widgets_list()
 
 
-def init_widgets_screen1():
+def init_widgets_screen():
     widgets_screen1 = init_widgets_list()
     return widgets_screen1
 
-def init_widgets_screen2():
-    widgets_screen2 = init_widgets_list()
-    return widgets_screen2
-
-widgets_screen1 = init_widgets_screen1()
-widgets_screen2 = init_widgets_screen2()
-
+widgets_screen1 = init_widgets_screen()
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=26, opacity=1.0))]
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen(), size=26, opacity=1.0))]
 
 screens = init_screens()
-
 
 # MOUSE CONFIGURATION
 mouse = [
@@ -530,46 +340,39 @@ dgroups_app_rules = []
 #########################################################
 ################ assgin apps to groups ##################
 #########################################################
-# @hook.subscribe.client_new
-# def assign_app_group(client):
-#     d = {}
-#     #####################################################################################
-#     ### Use xprop fo find  the value of WM_CLASS(STRING) -> First field is sufficient ###
-#     #####################################################################################
-#     d[group_names[0]] = ["Navigator", "Firefox", "Vivaldi-stable", "Vivaldi-snapshot", "Chromium", "Google-chrome", "Brave", "Brave-browser",
-#               "navigator", "firefox", "vivaldi-stable", "vivaldi-snapshot", "chromium", "google-chrome", "brave", "brave-browser", ]
-#     d[group_names[1]] = [ "Atom", "Subl", "Geany", "Brackets", "Code-oss", "Code", "TelegramDesktop", "Discord",
-#                "atom", "subl", "geany", "brackets", "code-oss", "code", "telegramDesktop", "discord", ]
-#     d[group_names[2]] = ["Inkscape", "Nomacs", "Ristretto", "Nitrogen", "Feh",
-#               "inkscape", "nomacs", "ristretto", "nitrogen", "feh", ]
-#     d[group_names[3]] = ["Gimp", "gimp" ]
-#     d[group_names[4]] = ["Meld", "meld", "org.gnome.meld" "org.gnome.Meld" ]
-#     d[group_names[5]] = ["Vlc","vlc", "Mpv", "mpv" ]
-#     d[group_names[6]] = ["VirtualBox Manager", "VirtualBox Machine", "Vmplayer",
-#               "virtualbox manager", "virtualbox machine", "vmplayer", ]
-#     d[group_names[7]] = ["Thunar", "Nemo", "Caja", "Nautilus", "org.gnome.Nautilus", "Pcmanfm", "Pcmanfm-qt",
-#               "thunar", "nemo", "caja", "nautilus", "org.gnome.nautilus", "pcmanfm", "pcmanfm-qt", ]
-#     d[group_names[8]] = ["Evolution", "Geary", "Mail", "Thunderbird",
-#               "evolution", "geary", "mail", "thunderbird" ]
-#     d[group_names[9]] = ["Spotify", "Pragha", "Clementine", "Deadbeef", "Audacious",
-#               "spotify", "pragha", "clementine", "deadbeef", "audacious" ]
-#     ######################################################################################
-#
-# wm_class = client.window.get_wm_class()[0]
-#
-#     for i in range(len(d)):
-#         if wm_class in list(d.values())[i]:
-#             group = list(d.keys())[i]
-#             client.togroup(group)
-#             client.group.cmd_toscreen(toggle=False)
+@hook.subscribe.client_new
+def assign_app_group(client):
+    d = {}
+    #####################################################################################
+    ### Use xprop fo find  the value of WM_CLASS(STRING) -> First field is sufficient ###
+    #####################################################################################
+    d[group_names[0]] = ["Firefox", "Vivaldi-stable", "Vivaldi-snapshot", "Chromium", "Google-chrome", "Brave", "Brave-browser",
+                        "firefox", "vivaldi-stable", "vivaldi-snapshot", "chromium", "google-chrome", "brave", "brave-browser",]
+    d[group_names[2]] = ["Subl", "VSCodium", "Meld", "org.gnome.Meld", "Gitg", "Gittyup",
+                        "subl", "vscodium", "meld", "org.gnome.meld", "gitg"]
+    d[group_names[3]] = ["Thunar", "Nemo", "Caja", "Nautilus", "org.gnome.Nautilus", "Pcmanfm", "Pcmanfm-qt",
+                        "thunar", "nemo", "caja", "nautilus", "org.gnome.nautilus", "pcmanfm", "pcmanfm-qt",]
+    d[group_names[4]] = ["VirtualBox Manager", "VirtualBox Machine", "Vmplayer", "Virt-manager",
+                        "virtualbox manager", "virtualbox machine", "vmplayer", "virt-manager",]
+    d[group_names[5]] = ["Vlc","vlc", "Mpv", "mpv" ]
+    d[group_names[6]] = ["Steam",]
+    d[group_names[7]] = ["Geary", "Mail", "Thunderbird", "Mailspring",
+                        "geary", "mail", "thunderbird", "mailspring",]
+    d[group_names[8]] = ["Skype", "skype"]
+    d[group_names[9]] = ["Spotify",  "Clementine", "Audacious", "Sonixd",
+                        "spotify", "clementine", "audacious", "sonixd",]
+    ######################################################################################
+
+    wm_class = client.window.get_wm_class()[0]
+
+    for i in range(len(d)):
+        if wm_class in list(d.values())[i]:
+            group = list(d.keys())[i]
+            client.togroup(group)
+            # client.group.cmd_toscreen(toggle=False)
 
 # END
 # ASSIGN APPLICATIONS TO A SPECIFIC GROUPNAME
-
-@hook.subscribe.client_new
-def client_new(client):
-    if client.window.get_wm_class()[0] == 'brave-browser':
-        client.togroup("1")
 
 main = None
 
@@ -590,7 +393,6 @@ def set_floating(window):
         window.floating = True
 
 floating_types = ["notification", "toolbar", "splash", "dialog"]
-
 
 follow_mouse_focus = True
 bring_front_click = False
@@ -621,6 +423,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='feh'),
     Match(wm_class='Galculator'),
     Match(wm_class='Archlinux-logout.py'),
+    Match(wm_class='archlinux-logout'),
     Match(wm_class='xfce4-terminal'),
     Match(wm_class='Bitwarden'),
     Match(wm_class='xfce4-appfinder'),

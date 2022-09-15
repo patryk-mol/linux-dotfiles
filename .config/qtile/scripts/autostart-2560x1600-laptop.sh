@@ -8,6 +8,7 @@ blueberry-tray &
 ulauncher --no-window &
 picom --experimental-backends --config $HOME/.config/picom/picom.conf &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+deadd-notification-center &
 xidlehook \
   --not-when-fullscreen \
   --not-when-audio \
@@ -20,3 +21,8 @@ xidlehook \
   --timer 300 \
     'systemctl suspend' \
     'xbacklight -set 60 -time 0 -steps 1' &
+
+steam &
+brave &
+skypeforlinux &
+mailspring &
