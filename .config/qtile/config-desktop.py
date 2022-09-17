@@ -130,8 +130,8 @@ keys = [
     Key([mod, "shift"], "f", lazy.layout.flip()),
 
 # MOVE ACTIVE SCREEN
-    Key([mod, "mod1"], "h", move_screen_focus_left()),
-    Key([mod, "mod1"], "l", move_screen_focus_right()),
+    Key([mod, "mod1"], "l", move_screen_focus_left()),
+    Key([mod, "mod1"], "h", move_screen_focus_right()),
 
 # MOVE WINDOWS UP OR DOWN BSP LAYOUT
     Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
