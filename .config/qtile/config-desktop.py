@@ -211,7 +211,7 @@ def init_layout_theme():
     return {"margin":2,
             "border_width":2,
             "border_focus": "#aaaaac",
-            "border_normal": "#464648"
+           "border_normal": "#464648"
             }
 
 layout_theme = init_layout_theme()
@@ -220,7 +220,7 @@ layouts = [
     layout.MonadTall(margin=6, border_width=2, border_focus="#FFFFFF", border_normal="#414143"),
     layout.MonadThreeCol(margin=6, border_width=2, border_focus="#FFFFFF", border_normal="#414143"),
     layout.MonadWide(margin=6, border_width=2, border_focus="#FFFFFF", border_normal="#414143"),
-    layout.Max(**layout_theme)
+    layout.Max()
 ]
 
 # COLORS FOR THE BAR
