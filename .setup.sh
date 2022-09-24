@@ -49,14 +49,13 @@ echo "2 - laptop - 2560x1600 resolution"
 option=0
 
 while [ $option -lt 1 ] || [ $option -gt 2 ]; do
-       printf "Select [1-2]: "
-       read option
-       if [ $option -lt 1 ] || [ $option -gt 2 ]; then
-              echo "Invalid option"
-       fi
+    printf "Select [1-2]: "
+    read option
+    if [ $option -lt 1 ] || [ $option -gt 2 ]; then
+        echo "Invalid option"
+    fi
 done
 
-echo "$option"
 cd
 
 if [ $option -eq 1 ]; then
