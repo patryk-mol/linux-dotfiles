@@ -9,7 +9,7 @@ picom --experimental-backends --config $HOME/.config/picom/picom.conf &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 deadd-notification-center &
 steam &
-brave &
+firefox &
 skypeforlinux &
 mailspring &
 xidlehook \
