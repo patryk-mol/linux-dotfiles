@@ -138,7 +138,7 @@ keys = [
 
 # MY KEYBINDS
     Key([mod], "space", lazy.spawn("ulauncher-toggle"), desc='Run Launcher'),
-    Key([mod], "b", lazy.spawn("brave"), desc='Run Brave'),
+    Key([mod], "b", lazy.spawn("firefox"), desc='Run Firefox'),
     Key([mod], "v", lazy.spawn("bitwarden-desktop"), desc='Run Bitwarden'),
     Key([mod, "shift"], "x", lazy.spawn("archlinux-logout"), desc="Open logout window"),
     Key([mod], "Return", lazy.spawn("alacritty"), desc='Run Alacritty'),
