@@ -23,6 +23,6 @@ xidlehook \
     'xbacklight -set 60 -time 0 -steps 1' &
 
 steam &
-brave &
+firefox &
 skypeforlinux &
 mailspring &
