@@ -5,7 +5,7 @@ source /usr/share/nvim/archlinux.vim
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'yunlingz/equinusocio-material.vim'
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 call plug#end()
 
