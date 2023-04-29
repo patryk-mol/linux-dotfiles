@@ -2,5 +2,7 @@
 	"theme": "Default Dark.sublime-theme",
 	"rulers": [160],
 	"tab_size": 4,
-	"scroll_past_end": 0.5
+	"scroll_past_end": 0.5,
+	"highlight_line": true,
+	"block_caret": true,
 }
