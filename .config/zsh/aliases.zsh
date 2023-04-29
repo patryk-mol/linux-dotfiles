@@ -31,6 +31,10 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias ln='ln -i'
 
+# Audio conversion
+alias split-flac='shnsplit -f *.cue -t "%n. %t" -o flac *.flac'
+alias split-ape='shnsplit -f *.cue -t "%n. %t" -o flac *.ape'
+
 # Navigation
 up () {
   local d=""
