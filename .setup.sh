@@ -13,7 +13,7 @@ git --git-dir=$HOME/projects/linux-dotfiles/ --work-tree=$HOME reset --hard
 printf "\n\nApplying themes...\n\n"
 
 git clone https://gitlab.com/pwyde/monochrome-kde.git ./projects/monochrome-kde
-cd .projects/monochrome-kde
+cd ./projects/monochrome-kde
 chmod +x install.sh
 ./install.sh --install
 cd
