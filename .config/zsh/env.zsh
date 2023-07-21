@@ -5,3 +5,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export HISTFILE=~/.zsh_history
 export HISTSIZE=5000
 export SAVEHIST=$HISTSIZE
+export QT_QPA_PLATFORM=wayland
+export GTK_THEME=Adwaita:dark
+export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
+export QT_STYLE_OVERRIDE=adwaita-dark
